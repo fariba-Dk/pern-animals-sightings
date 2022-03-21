@@ -1,0 +1,2 @@
+psql postgres this is to get in  psql
+allbetter this is passport     psql -U postgres -f db.sql
