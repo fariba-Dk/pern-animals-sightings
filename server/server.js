@@ -15,18 +15,18 @@ const PORT = process.env.PORT || 5005;
 app.use(cors());
 app.use(express.json()); //built in => takes body information and attach to request BODY
 
-// GET - '/' creates an endpoint for the route /api
-// app.get('/', async (req, res) => {
-//   try {
-//     const results = await db.query('SELECT * FROM animals');
-//     console.log(results);
+//GET - '/' creates an endpoint for the route /api
+app.get('/', async (req, res, next) => {
+  try {
+    const results = await db.query('SELECT * FROM animals');
+    console.log(results);
 
-//     // const { rows: animals } = await db.query('SELECT * FROM animals'); //table name
-//     res.send(results);
-//   } catch (error) {
-//     console.send(error);
-//   }
-// });
+    // const { rows: animals } = await db.query('SELECT * FROM animals'); //table name
+    res.send(results);
+  } catch (error) {
+    console.send(error);
+  }
+});
 
 // // GET - ALL animals
 app.get('/animals', cors(), async (req, res) => {
