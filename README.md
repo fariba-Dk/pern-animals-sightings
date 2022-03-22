@@ -1,5 +1,7 @@
 ### Your First Express and React App
+
 ### Full-Stack PERN Project: Animal Sighting Tracker
+
 Introduction
 You've now learned how to create a full-stack app with a React frontend, Node/Express backend, and Postgres database (PERN). This project is to practice putting it all together by building a fairly simple app from start to finish.
 Instructions/Notes
@@ -12,15 +14,18 @@ If you're stuck on something, please post in the cohort or #tech-help channel ra
 Styling/CSS is not important for this assignment, but once the behavior is working, please feel free to make it look nice.
 
 ### NEED TO HAVE
+
 Your app's React UI should have these features:
 
 1. Show a list of all sightings, including the nickname of the individual sighted at each one (using a JOIN query).
 2. Form to add a new sighting record
-Note: since this feature list only requires a UI to add a new sighting:
+   Note: since this feature list only requires a UI to add a new sighting:
 
 3. the other data can be manually added to the DB (just make sure it's in db.sql)
-this also means you only need GET API routes for the other resources
+   this also means you only need GET API routes for the other resources
+
 ### Overview
+
 Let's make an app to help scientists track sightings of endangered animals.
 Data
 Species
@@ -34,6 +39,7 @@ conservation status code (e.g. CR, EN, LC)
 Record creation timestamp
 
 ### =>
+
 It is up to you to decide which records are optional in your database.
 Individuals
 Scientists track some individual animals of endangered species, so we want to store data about each individual as well
@@ -117,10 +123,36 @@ Make sure this basic end-to-end flow is working. If not, get help!
 From there add more data and functionality
 Create full stack apps with React and Express. Run your client, server and do a restart of your dump db to have a full-stack project working in minutes
 
+### -> Once you finish the core requirements, you should choose at least one of the below and implement it. If you were caught up on Eventonica, it is expected you will do more than one of these in your initial PR by the deadline.
+
+Note: before starting any of these, make a commit, so in case you run of time in the middle you can always go back to the previous commit
+
+Feature: Individual Detail Page
+Click on an individual to bring up its details. Add some more database columns to make the view more interesting.
+
+the link to its Wikipedia page
+representative photo URL
+Group Sightings
+Especially with social species, storing which individuals were spotted together is vital for research.
+
+Be able to store a sighting where multiple individuals were spotted together. This means a sighting record needs to be able to be associated with multiple individuals. What type of data relationship is this? How do you need to change your DB schema to make this work?
+Filtering
+Add a "Healthy" filter checkbox
+
+the list of sightings should be filtered to only show sightings where the animal is healthy
+When unchecked, all sightings should be shown again.
+Do this using React only -- don’t change your API calls
+Testing
+Enzyme test for at least one component
+How can you test the creation form?
+API test for your sightings API (GET, POST/PUT, DELETE)
+
 # Step by Step instructions - To use this project as your start point
+
 ### For create the whole project
+
 1. Go to your source directory in your terminal and run the command `git clone https://github.com/Yosolita1978/React-Express-PairProgramming.git NAMENEWDIRECTORY`
-[!You will something like this in your terminal.](https://github.com/Yosolita1978/screenshoots/blob/main/template/Screen%20Shot%202022-03-20%20at%207.50.46%20PM.png?raw=true)
+   [!You will something like this in your terminal.](https://github.com/Yosolita1978/screenshoots/blob/main/template/Screen%20Shot%202022-03-20%20at%207.50.46%20PM.png?raw=true)
 
 2. To restore the DB dump file that the project already contain, just run the command `psql -U postgres -f db.sql`. Make sure that you have your Postgres password on hand. The psql console will ask you for your password.
 3. To clean your folder from the owner git, run the command `rm -rf .git`
@@ -133,4 +165,4 @@ Create full stack apps with React and Express. Run your client, server and do a 
 10. Go to the cliente folder (`cd .. and cd client`) and run the command `npm start`
 11. Both server should run now with `npm start`
 12. Go to localhost:3000 and you should see something like this
-[!You will something like this in your terminal.](https://github.com/Yosolita1978/screenshoots/blob/main/template/Screen%20Shot%202022-03-20%20at%208.58.13%20PM.png?raw=true)
+    [!You will something like this in your terminal.](https://github.com/Yosolita1978/screenshoots/blob/main/template/Screen%20Shot%202022-03-20%20at%208.58.13%20PM.png?raw=true)

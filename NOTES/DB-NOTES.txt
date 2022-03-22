@@ -1,0 +1,39 @@
+faribadadko@Faribas-MacBook-Pro-2 ~ % psql
+Password for user faribadadko:
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: FATAL:  database "faribadadko" does not exist
+faribadadko@Faribas-MacBook-Pro-2 ~ % psql postgres
+Password for user faribadadko:
+psql (14.2)
+Type "help" for help.
+
+postgres=# \d
+                List of relations
+ Schema |      Name      |   Type   |    Owner
+--------+----------------+----------+-------------
+ public | animals        | table    | faribadadko
+ public | animals_id_seq | sequence | faribadadko
+ public | locations      | table    | faribadadko
+ public | user           | table    | faribadadko
+ public | user_id_seq    | sequence | faribadadko
+ public | users          | table    | faribadadko
+ public | users_id_seq   | sequence | faribadadko
+(7 rows)
+
+postgres=# SELECT * from animals;
+ id |    commonname     | scientificname | total_wild | location | creation_timestamp | healthy
+----+-------------------+----------------+------------+----------+--------------------+---------
+  1 | Elephants         | Elephantus     |       4000 |          |                    |
+  2 | Sharks            | Zygaena        |      90000 |          |                    |
+  3 | Cammel            | Clamus         |       8870 |          | 1919-10-27         | t
+  4 | Indian_rhinoceros | Riono_indis    |       8070 |          | 1922-10-27         | t
+  5 | Raccoon          +| Rooocoo_indis  |       8070 |          | 1922-10-27         | t
+    |                   |                |            |          |                    |
+  6 | Raccoon          +| Rooocoo_indis  |       8070 |          | 1922-10-27         | t
+    |                   |                |            |          |                    |
+(6 rows)
+
+(END)
+
+
+
+
