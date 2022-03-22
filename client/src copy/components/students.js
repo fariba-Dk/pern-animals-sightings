@@ -6,7 +6,7 @@ function Students() {
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5005/api/students")
+        fetch("http://localhost:5000/api/students")
         .then((response) => response.json())
         .then(students =>{
             //setStudents((students[3]));
@@ -15,12 +15,12 @@ function Students() {
                if( index !== "3"){
                    setStudents(students);
                }
-            };
+            };       
         })
-
+        
     }, []);
 
-
+    
 
     const addStudent = (newStudent) => {
         //console.log(newStudent);
@@ -40,5 +40,5 @@ function Students() {
       </div>
     );
   }
-
+  
   export default Students;

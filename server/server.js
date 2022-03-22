@@ -1,8 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+
+//FOR DEVELOPMENT or FOR PRODUCTION environment variables ===Environment variables are, in short, variables that describe the environment in which apps and programs run
 require('dotenv').config();
 const db = require('../server/db/db-connection.js');
 
+//creating an instance of express
 const app = express();
 
 const PORT = 5005;
@@ -17,7 +20,7 @@ app.get('/', (req, res) => {
 //create the get request
 app.get('/api/myanimals', cors(), async (req, res) => {
   //database
-  // const STUDENTS = [
+  // const My = [
 
   //     { id: 1, commonname: 'Lisa', scientificname: 'Lee', total_wild: },
   //     { id: 2, firstName: 'Eileen', lastName: 'Long' },
@@ -35,14 +38,14 @@ app.get('/api/myanimals', cors(), async (req, res) => {
 });
 
 //create the POST request
-app.post('/api/students', cors(), async (req, res) => {
+app.post('/api/myanimals', cors(), async (req, res) => {
   const newUser = {
-    firstname: req.body.firstname,
+    commonname: req.body.firstname,
     lastname: req.body.lastname,
   };
   console.log([newUser.firstname, newUser.lastname]);
   const result = await db.query(
-    'INSERT INTO students(firstname, lastname) VALUES($1, $2) RETURNING *',
+    'INSERT INTO myanimals(firstname, lastname) VALUES($1, $2) RETURNING *',
     [newUser.firstname, newUser.lastname]
   );
   console.log(result.rows[0]);

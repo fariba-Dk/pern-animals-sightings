@@ -8,7 +8,9 @@
 
 # production
 /build
-
+.env
+NOTES.txt
+.txt
 # misc
 .DS_Store
 .env.local

@@ -44,23 +44,28 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: students; Type: TABLE; Schema: public; Owner: postgres
+-- Name: myanimals; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.students (
+CREATE TABLE public.myanimals (
     id integer NOT NULL,
-    lastname character varying(255),
-    firstname character varying(255)
+    commonname character varying(255),
+    scientificname character varying(255),
+    total_wild INTEGER (10),
+    conservation_status_code VARCHAR (10),
+    healthy BOOL (1),
+    creation_timestamp DATE,
+
 );
 
 
-ALTER TABLE public.students OWNER TO postgres;
+ALTER TABLE public.myanimals OWNER TO postgres;
 
 --
--- Name: students_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: myanimals_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.students_id_seq
+CREATE SEQUENCE public.myanimals_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -69,27 +74,27 @@ CREATE SEQUENCE public.students_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.students_id_seq OWNER TO postgres;
+ALTER TABLE public.myanimals_id_seq OWNER TO postgres;
 
 --
--- Name: students_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: myanimals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.students_id_seq OWNED BY public.students.id;
-
-
---
--- Name: students id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.students ALTER COLUMN id SET DEFAULT nextval('public.students_id_seq'::regclass);
+ALTER SEQUENCE public.myanimals_id_seq OWNED BY public.myanimals.id;
 
 
 --
--- Data for Name: students; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Name: myanimals id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-COPY public.students (id, lastname, firstname) FROM stdin;
+ALTER TABLE ONLY public.myanimals ALTER COLUMN id SET DEFAULT nextval('public.myanimals_id_seq'::regclass);
+
+
+--
+-- Data for Name: myanimals; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.myanimals (id, commonname, scientificname) FROM stdin;
 1	Gomez	Andrea
 2	Lee	Becca
 3	Smith	Will
@@ -100,24 +105,24 @@ COPY public.students (id, lastname, firstname) FROM stdin;
 9	Fonca	Billy
 10	Gomez	Teresa
 11	Tres	Prueba
-12	Cuatro	Prueba 
+12	Cuatro	Prueba
 13	Cinco	Prueba
 \.
 
 
 --
--- Name: students_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: myanimals_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.students_id_seq', 13, true);
+SELECT pg_catalog.setval('public.myanimals_id_seq', 13, true);
 
 
 --
--- Name: students students_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: myanimals myanimals_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.students
-    ADD CONSTRAINT students_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.myanimals
+    ADD CONSTRAINT myanimals_pkey PRIMARY KEY (id);
 
 
 --
