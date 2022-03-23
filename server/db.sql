@@ -10,3 +10,15 @@ CREATE TABLE animals (
     creation_timestamp DATE,
 
 );
+
+CREATE TABLE users(
+    first_name varchar(30),
+    last_name varchar(30),
+    
+
+)
+
+CREATE TABLE locations(
+    city_name character varying(30),
+    location point
+)

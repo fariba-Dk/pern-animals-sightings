@@ -3,38 +3,31 @@ import '../App.css';
 import Form from './Form';
 
 function Animals() {
-  const [animals, setAnimals] = useState([]);
-
   const getAnimals = async () => {
     try {
       const response = await fetch('http://localhost:5005/animals');
       const data = await response.json();
+      setAnimalsData(data);
 
-      console.log(data);
+      console.log('this is data', animalsData);
     } catch (error) {
       console.error(error);
     }
   };
+  const [animalsData, setAnimalsData] = useState([]);
 
   useEffect(() => {
     getAnimals();
   }, []);
 
-  //this is how the data showing
-  console.log(animals);
-
   return (
     <div>
-
-
-
       <div>
         <h1 className='a'> 🦍 🐢 🦁 🦃 🦅 🦝 🐅 🐪 🦁 🐘 🐒 🦃 🦖 🦍 </h1>
         <div>
-        <h1 className='a'> 🦍 🐢 🦁 🦃 🦅 🦝 🐅 🐪 🦁 🐘 🐒 🦃 🦖 🦍 </h1>
+          <h1 className='a'> 🦍 🐢 🦁 🦃 🦅 🦝 🐅 🐪 🦁 🐘 🐒 🦃 🦖 🦍 </h1>
+        </div>
       </div>
-      </div>
-
 
       <table className='table mt-5 text-center'>
         <thead>
@@ -50,10 +43,10 @@ function Animals() {
             <td>Add</td>
             <td>Edit</td>
             <td>Delete</td>
-          </tr> */}
-          {animals.map((animal) => (
-            <tr>
-              animal.commonname
+          </tr>  *** mdn table syntax*/}
+          {animalsData.map((animal) => (
+            <tr key={animal.id}>
+              <td>{animal.commonname}</td>
               <td>Add</td>
               <td>Edit</td>
               <td>Delete</td>

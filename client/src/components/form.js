@@ -9,12 +9,14 @@ const Form = () => {
   //handle submit ...
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const animal = e.target.value;
     try {
-      const body = { animal };
-      const response = fetch('http:localhost:5005/animals', {
+      const body = { animal: animal };
+      //look at server side line 37 re.body
+      const response = fetch('http://localhost:5005/animals', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: 'JSON.stringify(body)',
+        body: JSON.stringify(body),
       });
       console.log(response);
     } catch (error) {
@@ -23,16 +25,12 @@ const Form = () => {
   };
 
   //create functions that handle the event of the user typing into the form
-  const handleNameSubmit = (event) => {
-    const commonname = event.target.value;
-    setAnimal((animal) => ({ ...animal, commonname }));
-  };
-
-  
-
+  // const handleNameSubmit = (event) => {
+  //   // const commonname = event.target.value;
+  //   setAnimal((animal) => ({ ...animal, commonname }));
+  // };
   return (
     <div>
-
       <h1 className='text-center mt-3'>What Did You Spot?</h1>
 
       <form className='d-flex mt-5'>
@@ -45,9 +43,8 @@ const Form = () => {
             placeholder='Animal Common Name'
             required
             value={animal.name}
-            onChange={handleNameSubmit}
+            onChange={handleSubmit}
           />
-
         </fieldset>
         <button className='btn btn-success' type='submit'>
           Add Animal

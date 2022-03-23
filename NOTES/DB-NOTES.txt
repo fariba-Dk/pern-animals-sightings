@@ -37,3 +37,4 @@ postgres=# SELECT * from animals;
 
 
 
+postman { commonname: 'bear', scientificname: 'bearotus', total_wild: 4500 }

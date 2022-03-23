@@ -30,19 +30,20 @@ app.get('/animals/', async (req, res, next) => {
   }
 });
 
-
 //POST - add
 app.post('/animals', cors(), async (req, res) => {
   try {
-    const {name} = req.body;
-    const newAnimal = await db.query("INSERT INTO animals (commonname) VALUES($1) RETURNING *", [name])//placeholder
+    const { animal } = req.body;
+    const newAnimal = await db.query(
+      'INSERT INTO animals (commonname) VALUES($1) RETURNING *',
+      [animal]
+    ); //placeholder
     console.log(req.body);
-    res.json(newAnimal.rows[0])
+    res.json(newAnimal.rows[0]);
   } catch (error) {
     console.error(error.message);
   }
 });
-
 
 /*
 //POST request
