@@ -24,8 +24,18 @@ function Animals() {
   console.log(animals);
 
   return (
-    <div className='animals'>
-      <h2 className="h2">    🦅    🦝    🐅   🐢   🐪   🦁    🐘    🐒    🦃     🦖    🦍    </h2>
+    <div>
+
+
+
+      <div>
+        <h1 className='a'> 🦍 🐢 🦁 🦃 🦅 🦝 🐅 🐪 🦁 🐘 🐒 🦃 🦖 🦍 </h1>
+        <div>
+        <h1 className='a'> 🦍 🐢 🦁 🦃 🦅 🦝 🐅 🐪 🦁 🐘 🐒 🦃 🦖 🦍 </h1>
+      </div>
+      </div>
+
+
       <table className='table mt-5 text-center'>
         <thead>
           <tr>
