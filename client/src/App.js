@@ -1,12 +1,15 @@
 import './App.css';
 import Animals from './components/Animals';
+import Form from './components/Form';
 
 function App() {
   return (
-    <div className='App'>
-      Hello from Techtonica
+    <>
+      <h1 className='h1'>I Spot An ...!👁‍🗨</h1>
+
       <Animals />
-    </div>
+      <Form />
+    </>
   );
 }
 

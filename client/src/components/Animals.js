@@ -1,46 +1,69 @@
-import { useState, useEffect } from "react";
-import Form from "./Form";
+import React, { useState, useEffect } from 'react';
+import '../App.css';
+import Form from './Form';
 
 function Animals() {
+  const [animals, setAnimals] = useState([]);
 
-    const [animals, setAnimals] = useState([]);
+  const getAnimals = async () => {
+    try {
+      const response = await fetch('http://localhost:5005/animals');
+      const data = await response.json();
 
-    useEffect(() => {
-        fetch("http://localhost:5005/api/animals")
-        .then((response) => response.json())
-        .then(students =>{
-            //setStudents((students[3]));
-            //console.log("Testing", typeof students);
-            for (let index in animals){
-               if( index !== "3"){
-                setAnimals(animals);
-               }
-            };
-        })
-
-    }, []);
-
-
-
-    const addAnimal = (newAnimal) => {
-        //console.log(newStudent);
-        //postStudent(newStudent);
-        setAnimals((animals) => [...animals, newAnimal]);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
     }
+  };
 
+  useEffect(() => {
+    getAnimals();
+  }, []);
 
-    return (
-      <div className="animals">
-        <h2> List of Animals </h2>
-        <ul>
-            {animals.map(animal =>
-                <li key={animal.id}> {animal.commonname} {animal.scientificname}{animal.total_wild}
-                {animal.creation_timestamp}
-                {animal.healthy}</li>)}
-        </ul>
-        <Form addStudent={addAnimal} />
-      </div>
-    );
-  }
+  //this is how the data showing
+  console.log(animals);
 
-  export default Animals;
+  return (
+    <div className='animals'>
+      <h2 className="h2">    🦅    🦝    🐅   🐢   🐪   🦁    🐘    🐒    🦃     🦖    🦍    </h2>
+      <table className='table mt-5 text-center'>
+        <thead>
+          <tr>
+            <th>Animal Common Name</th>
+            <th>Animal Scientific Name</th>
+            <th>Date of Sighting</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* <tr>
+            <td>Animal Name</td>
+            <td>Add</td>
+            <td>Edit</td>
+            <td>Delete</td>
+          </tr> */}
+          {animals.map((animal) => (
+            <tr>
+              animal.commonname
+              <td>Add</td>
+              <td>Edit</td>
+              <td>Delete</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {/* <ul>
+        {animals.map((animal) => (
+          <li key={animal.id}>
+            {' '}
+            {animal.commonname} {animal.scientificname}
+            {animal.total_wild}
+            {animal.creation_timestamp}
+            {animal.healthy}
+          </li>
+        ))}
+      </ul> */}
+    </div>
+  );
+}
+
+export default Animals;
