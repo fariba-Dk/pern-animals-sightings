@@ -1,116 +1,216 @@
-.App {
+* {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-align: center;
-  background-color: green;
-
+  background-color: rgb(225, 243, 225);
 }
-
+.fieldset {
+  color: green;
+  border-width: 50px;
+  height: 20px;
+  display: inline;
+  text-align: center;
+  padding: 5px;
+  margin: 5px;
+  border-width: thick;
+  border-color: greenyellow;
+  font-size: 20px;
+}
+.button {
+  padding: 0px;
+  margin: 0px;
+  width: 6%;
+}
+.btn btn-success {
+  color: green;
+  background-color: red;
+}
 .h1 {
-  text-align:center;
-  font-size:90px;
-  color:red;
+  text-align: center;
+  font-size: 90px;
+  color: red;
   background-color: black;
-  margin:0;
-  padding:10px;
+  margin: 0;
+  padding: 10px;
 }
 
-.h2{
-  text-align:center;
-  font-size:90px;
-  color:yellow;
+.h2 {
+  text-align: center;
+  font-size: 90px;
+  color: yellow;
   background-color: green;
-  margin:0;
-  padding:10px;
+  margin: 50px;
+  padding: 10px;
 }
-.a{
+.a {
   position: absolute;
   top: 600px;
-left:0;
-right:0;
-margin:0 auto;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   width: 10px;
   height: 10px;
   background: red;
   -webkit-animation: myOrbit 6s linear infinite;
--moz-animation: myOrbit 6s linear infinite;
--o-animation: myOrbit 6s linear infinite;
-animation: myOrbit 6s linear infinite;
+  -moz-animation: myOrbit 6s linear infinite;
+  -o-animation: myOrbit 6s linear infinite;
+  animation: myOrbit 6s linear infinite;
 }
 
-.a:after{
-content: "";
-position: absolute;
+.a:after {
+  content: '';
+  position: absolute;
   top: 0;
-left:0;
-right:0;
-margin: 0 auto;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   width: 100px;
   height: 10px;
-opacity: .1;
+  opacity: 0.1;
   background-color: red;
   -webkit-animation: myOrbit-fadeout 6s linear infinite;
--moz-animation: myOrbit-fadeout 6s linear infinite;
--o-animation: myOrbit-fadeout 6s linear infinite;
-animation: myOrbit-fadeout 6s linear infinite;
+  -moz-animation: myOrbit-fadeout 6s linear infinite;
+  -o-animation: myOrbit-fadeout 6s linear infinite;
+  animation: myOrbit-fadeout 6s linear infinite;
 }
 
-
 @-webkit-keyframes myOrbit {
-  0%  { -webkit-transform: rotate(0deg) translateY(200px); }
-  25%  { -webkit-transform: rotate(90deg) translateY(200px); }
-  50%  { -webkit-transform: rotate(180deg) translateY(200px); }
-  75%  { -webkit-transform: rotate(270deg) translateY(200px); }
-  100%  { -webkit-transform: rotate(360deg) translateY(200px); }
+  0% {
+    -webkit-transform: rotate(0deg) translateY(200px);
+  }
+  25% {
+    -webkit-transform: rotate(90deg) translateY(200px);
+  }
+  50% {
+    -webkit-transform: rotate(180deg) translateY(200px);
+  }
+  75% {
+    -webkit-transform: rotate(270deg) translateY(200px);
+  }
+  100% {
+    -webkit-transform: rotate(360deg) translateY(200px);
+  }
 }
 
 @-moz-keyframes myOrbit {
-  0%  { -moz-transform: rotate(0deg) translateY(200px); }
-  25%  { -moz-transform: rotate(90deg) translateY(200px); }
-  50%  { -moz-transform: rotate(180deg) translateY(200px); }
-  75%  { -moz-transform: rotate(270deg) translateY(200px); }
-  100%  { -moz-transform: rotate(360deg) translateY(200px); }
+  0% {
+    -moz-transform: rotate(0deg) translateY(200px);
+  }
+  25% {
+    -moz-transform: rotate(90deg) translateY(200px);
+  }
+  50% {
+    -moz-transform: rotate(180deg) translateY(200px);
+  }
+  75% {
+    -moz-transform: rotate(270deg) translateY(200px);
+  }
+  100% {
+    -moz-transform: rotate(360deg) translateY(200px);
+  }
 }
 
 @-o-keyframes myOrbit {
-0%  { -o-transform: rotate(0deg) translateY(200px); }
-  25%  { -o-transform: rotate(90deg) translateY(200px); }
-  50%  { -o-transform: rotate(180deg) translateY(200px); }
-  75%  { -o-transform: rotate(270deg) translateY(200px); }
-  100%  { -o-transform: rotate(360deg) translateY(200px); }
+  0% {
+    -o-transform: rotate(0deg) translateY(200px);
+  }
+  25% {
+    -o-transform: rotate(90deg) translateY(200px);
+  }
+  50% {
+    -o-transform: rotate(180deg) translateY(200px);
+  }
+  75% {
+    -o-transform: rotate(270deg) translateY(200px);
+  }
+  100% {
+    -o-transform: rotate(360deg) translateY(200px);
+  }
 }
 
 @keyframes myOrbit {
-  0%  { transform: rotate(0deg) translateY(200px); }
-  25%  { transform: rotate(90deg) translateY(200px); }
-  50%  { transform: rotate(180deg) translateY(200px); }
-  75%  { transform: rotate(270deg) translateY(200px); }
-  100%  { transform: rotate(360deg) translateY(200px); }
+  0% {
+    transform: rotate(0deg) translateY(200px);
+  }
+  25% {
+    transform: rotate(90deg) translateY(200px);
+  }
+  50% {
+    transform: rotate(180deg) translateY(200px);
+  }
+  75% {
+    transform: rotate(270deg) translateY(200px);
+  }
+  100% {
+    transform: rotate(360deg) translateY(200px);
+  }
 }
 
 @-webkit-keyframes myOrbit-fadeout {
-  0%  { opacity: 1.0; }
-  25%  { opacity: .75; }
-  50%  { opacity: .5; }
-  75%  { opacity: .25; }
-  100%  { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 @-moz-keyframes myOrbit-fadeout {
-  0%  { opacity: 1.0; }
-  25%  { opacity: .75; }
-  50%  { opacity: .5; }
-  75%  { opacity: .25; }
-  100%  { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 @-o-keyframes myOrbit-fadeout {
-  0%  { opacity: 1.0; }
-  25%  { opacity: .75; }
-  50%  { opacity: .5; }
-  75%  { opacity: .25; }
-  100%  { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 @keyframes myOrbit-fadeout {
-  0%  { opacity: 1.0; }
-  25%  { opacity: .75; }
-  50%  { opacity: .5; }
-  75%  { opacity: .25; }
-  100%  { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+  }
 }

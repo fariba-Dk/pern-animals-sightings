@@ -88,6 +88,18 @@ app.post('/animals', cors(), async (req, res) => {
 // });
 
 //DELETE
+app.delete('/animals/:id', async (req, res) => {
+  try {
+    const { id } = await req.params;
+    const deleteAnimal = await db.query(
+      'DELETE * FROM animals WHERE animal_id = $1',
+      [id]
+    );
+    res.json('animal deleted');
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 //create the PUT request
 // app.delete('/api/animals/:id', cors(), async (req, res) => {
@@ -102,53 +114,3 @@ app.post('/animals', cors(), async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
-
-// // GET - trying to get animals by id
-// app.get('/animals/id', cors(), async (req, res) => {
-//   try {
-//     //to send a query => db.query then the postgress
-//     const results = await db.query('SELECT * FROM animals');
-//     console.log(results.id);
-//     // const { rows: animals } = await db.query('SELECT * FROM animals'); //table name
-//     res.send(results.rows);
-//   } catch (e) {
-//     return res.status(400).json({ e });
-//   }
-// });
-
-// //// GET - '/' create the get request
-// app.get('/animals/:id', cors(), async (req, res) => {
-//   try {
-//     const resultById = await db.query('SELECT * FROM animals'); //table name
-//     console.log(resultById.id);
-//     res.send(resultById.id);
-//     console.log(req.params);
-//   } catch (e) {
-//     return res.status(400).json({ e });
-//   }
-// });
-
-/*
-//POST request
-app.post('/animals', cors(), async (req, res) => {
-  try {
-    const newAnimal = await req.body;
-    const result = await db.query(
-      'INSERT INTO myanimals(commonname, scientificname) VALUES($1, $2) RETURNING *',
-      [newAnimal.commonname, newAnimal.scientificname]
-    );
-    console.log(req.body)
-  } catch (error) {
-    console.error(error.message);
-
-    const newAnimal = {
-      commonname: req.body.commonname,
-      scientificname: req.body.scientificname,
-    };
-    console.log([newAnimal.commonname, newAnimal.scientificname]);
-
-    console.log(result.rows[0]);
-    res.json(result.rows[0]);
-  }
-});
-*/

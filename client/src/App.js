@@ -6,9 +6,12 @@ function App() {
   return (
     <>
       <h1 className='h1'>I Spot An ...!👁‍🗨</h1>
-
+      <div>
+        <h4 className='a'> | 🐢 🦃 🦅 🐅 🦁 🐘 🐒 pijo🦃 🦖 </h4>
+      </div>
+ <Form />
       <Animals />
-      <Form />
+
     </>
   );
 }

@@ -5,7 +5,6 @@ const Form = () => {
   //HOOKS
 
   const [animal, setAnimal] = useState({});
-
   //handle submit ...
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,31 +23,51 @@ const Form = () => {
     }
   };
 
-  //create functions that handle the event of the user typing into the form
-  // const handleNameSubmit = (event) => {
-  //   // const commonname = event.target.value;
-  //   setAnimal((animal) => ({ ...animal, commonname }));
-  // };
   return (
     <div>
-      <h1 className='text-center mt-3'>What Did You Spot?</h1>
-
-      <form className='d-flex mt-5'>
+      <form className='fieldset'>
         <fieldset>
-          <label>Animal Name</label>
+          <h1 className='text-center'>What Did You Spot Today? 🐘 </h1>
+          {/* {' '}
+            {animal.commonname} {animal.scientificname}
+            {animal.total_wild}
+            {animal.creation_timestamp}
+            {animal.healthy} */}
           <input
             type='text'
-            className='form-control mt-5'
+            className='form-control'
             id='add-animal-name'
-            placeholder='Animal Common Name'
+            placeholder='Animal Name'
             required
             value={animal.name}
             onChange={handleSubmit}
           />
+          <br />
+          <input
+            type='date'
+            className='form-control'
+            id='add-animal-name'
+            value={animal.creation_timestamp}
+            onChange={handleSubmit}
+          />
+          <br/>
+          <input type='type'
+          placeholder="Does Animal seems healthy?"
+          value={animal.healthy} />
+          <br/>
+          <input type='type'
+          placeholder="Y"
+          value={animal.healthy} />
+          <input type='type'
+          placeholder="N"
+            value={animal.health}
+          />
+          <br/>
+
+          <button className='button' type='submit'>
+            Add
+          </button>
         </fieldset>
-        <button className='btn btn-success' type='submit'>
-          Add Animal
-        </button>
       </form>
     </div>
   );
