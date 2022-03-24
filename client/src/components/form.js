@@ -9,11 +9,11 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // if(!animal) return;
-    const animal = e.target.value;
+    // const animal = e.target.value;
     try {
       const body = { animal: animal };
       //look at server side line 37 re.body
-      const response = fetch('http://localhost:5005/animals', {
+      const response = await fetch('http://localhost:5005/animals', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -40,8 +40,8 @@ const Form = () => {
             className='form-control'
             placeholder='Animal Name'
             required
-            value={animal.name}
-            onChange={(e) => setAnimal(e.target.value)}
+            value={animal.commonmname}
+            onChange={(e) => setAnimal({...animal, commonname: e.target.value})}
           />
           <br />
           <input

@@ -31,20 +31,19 @@ app.get('/animals/', async (req, res, next) => {
 });
 
 //POST - add
-
-// const result = await db.query(
-//   'INSERT INTO myanimals(commonname, scientificname) VALUES($1, $2) RETURNING *',
 app.post('/animals', cors(), async (req, res) => {
   try {
     const { animal } = req.body;
-    const name = animal.commonname;
-    console.log('this is name', name);
+
     const newAnimal = await db.query(
-      'INSERT INTO animals (commonname) VALUES(' + name + ') RETURNING *',
-      [animal]
-    ); //placeholder
-    console.log(req.body);
-    res.json(newAnimal.rows[0]);
+      //   //prepair statement
+      'INSERT INTO animals (commonname,scientificname) VALUES($1, $2) RETURNING *',
+      ['aaaa', 'bbbb']
+    );
+    // ); //placeholder
+    console.log('this is the request body ', req.body);
+    console.log('this is the new---->', newAnimal);
+    res.json({ say: 'hi' });
   } catch (error) {
     console.error(error.message);
   }
