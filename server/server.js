@@ -31,11 +31,16 @@ app.get('/animals/', async (req, res, next) => {
 });
 
 //POST - add
+
+// const result = await db.query(
+//   'INSERT INTO myanimals(commonname, scientificname) VALUES($1, $2) RETURNING *',
 app.post('/animals', cors(), async (req, res) => {
   try {
     const { animal } = req.body;
+    const name = animal.commonname;
+    console.log('this is name', name);
     const newAnimal = await db.query(
-      'INSERT INTO animals (commonname) VALUES($1) RETURNING *',
+      'INSERT INTO animals (commonname) VALUES(' + name + ') RETURNING *',
       [animal]
     ); //placeholder
     console.log(req.body);

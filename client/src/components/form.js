@@ -8,6 +8,7 @@ const Form = () => {
   //handle submit ...
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // if(!animal) return;
     const animal = e.target.value;
     try {
       const body = { animal: animal };
@@ -23,9 +24,10 @@ const Form = () => {
     }
   };
 
+
   return (
     <div>
-      <form className='fieldset'>
+      <form onSubmit={handleSubmit} className='fieldset'>
         <fieldset>
           <h1 className='text-center'>What Did You Spot Today? 🐘 </h1>
           {/* {' '}
@@ -36,11 +38,10 @@ const Form = () => {
           <input
             type='text'
             className='form-control'
-            id='add-animal-name'
             placeholder='Animal Name'
             required
             value={animal.name}
-            onChange={handleSubmit}
+            onChange={(e) => setAnimal(e.target.value)}
           />
           <br />
           <input
@@ -64,7 +65,7 @@ const Form = () => {
           />
           <br/>
 
-          <button className='button' type='submit'>
+          <button onClick={() => e => handleSubmit} className='button' type='submit'>
             Add
           </button>
         </fieldset>
@@ -82,7 +83,7 @@ export default Form;
   creation_timestamp: new Date(),
   healthy: '',
 });
-
+SELECT * FROM animals INNER JOIN users ON animals_id = users_id;
 //create functions that handle the event of the user typing into the form
 const handleCommonnameChange = (event) => {
   const commonname = event.target.value;

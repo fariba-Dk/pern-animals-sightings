@@ -38,3 +38,5 @@ postgres=# SELECT * from animals;
 
 
 postman { commonname: 'bear', scientificname: 'bearotus', total_wild: 4500 }
+
+SELECT * FROM animals INNER JOIN users ON animals_id_seq = users_id_seq;
