@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+
 function Seekers() {
   const [seekers, setSeekers] = useState([]);
 
@@ -53,16 +54,30 @@ function Seekers() {
   // }
   return (
     <div>
-    
-      {seekers.map((seeker) => (
-        <li key={seeker.id}>
-          {seeker.name} {seeker.nick_name} {seeker.email}
-        </li>
-      ))}
-      <br />
-      <button onClick={createSeeker}>Add Seeker</button>
-      <br />
-      {/* <button onClick={deleteSeeker}>Delete Seeker</button> */}
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Nick Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {seekers.map((seeker) => (
+            <tr key={seeker.id}>
+              <td>{seeker.name}</td>
+              <td>{seeker.nick_name}</td>
+              <td>{seeker.email}</td>
+
+              <td>
+                <button onClick={() => setSeekers(seeker.id)}>Update</button>
+              </td>
+            </tr>
+          ))}
+
+          {/* <button onClick={deleteSeeker}>Delete Seeker</button> */}
+        </tbody>
+      </table>
     </div>
   );
 }

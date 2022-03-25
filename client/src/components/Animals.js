@@ -37,32 +37,34 @@ function Animals() {
   return (
     <div className='app'>
       <table>
-        <tr>
-          <th>Common-Name</th>
-          <th>Scientific-Name</th>
-          <th>Total-In-Wild</th>
-          <th>Location-Found</th>
-          <th>Healthy</th>
-          <th>Notes</th>
-        </tr>
-
-        {animalsData.map((animal) => (
-          <tr key={animal.id}>
-            <td>{animal.commonname}</td>
-            <td>{animal.scientificname}</td>
-            <td>{animal.total_wild}</td>
-            <td>{animal.location}</td>
-            <td>{animal.healthy}</td>{' '}
-            <td>{' '}</td>
-            <td>{' '}</td>
-            <td>
-              <input type='text' placeholder='Notes...' />
-            </td>
-            <td>
-              <button onClick={() => deleteAnimal(animal.id)}>Update</button>
-            </td>
+        <thead>
+          <tr>
+            <th>Common-Name</th>
+            <th>Scientific-Name</th>
+            <th>Total-In-Wild</th>
+            <th>Location-Found</th>
+            <th>Healthy</th>
+            <th>Notes</th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {animalsData.map((animal) => (
+            <tr key={animal.id}>
+              <td>{animal.commonname}</td>
+              <td>{animal.scientificname}</td>
+              <td>{animal.total_wild}</td>
+              <td>{animal.location}</td>
+              <td>{animal.healthy}</td> <td> </td>
+              <td> </td>
+              <td>
+                <input type='text' placeholder='Notes...' />
+              </td>
+              <td>
+                <button onClick={() => deleteAnimal(animal.id)}>Update</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );

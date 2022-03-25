@@ -13,11 +13,11 @@ const Form = () => {
     try {
       const body = { animal: animal };
       //look at server side line 37 re.body
-      const response = await fetch('http://localhost:8080/api/animals', {
+      const response = await fetch('http://localhost:8080/animals', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(response),
-      })
+        body: JSON.stringify(body),
+      });
 
       console.log(response);
     } catch (error) {
@@ -73,16 +73,17 @@ const Form = () => {
           <input type='type' placeholder='Yes!' value={animal.healthy} />
           <input type='checkbox' placeholder='Y' value={animal.healthy} />
           <input type='type' placeholder='No!' value={animal.healthy} />
-          <br/>
-
-          <textArea className='textarea' type="text" placeholder="Additional notes... "> Please Add Additional Notes here...
-          </textArea>
           <br />
-          <button
-            onClick={() => (e) => handleSubmit}
-            className='button'
-            type='submit'
+
+          <textarea
+            className='textarea'
+            type='text'
+            placeholder='Additional notes... '
           >
+            Notes Here...
+          </textarea>
+          <br />
+          <button className='button' type='submit'>
             Add
           </button>
         </fieldset>
