@@ -12,11 +12,11 @@ function Animals() {
 
   const getAnimals = async () => {
     try {
-      const response = await fetch('http://localhost:5005/animals');
+      const response = await fetch('http://localhost:5002/animals');
       const data = await response.json();
       setAnimalsData(data);
 
-      console.log('this is data', animalsData);
+      console.log('this is data------->', animalsData);
     } catch (error) {
       console.error(error);
     }
@@ -26,7 +26,7 @@ function Animals() {
   const deleteAnimal = async (id) => {
     try {
       const deleteAnimal = await fetch(
-        `http://localhost:5005/animals/` +id,
+        `http://localhost:5002/animals/` +id,
         {
           method: 'DELETE',
         }

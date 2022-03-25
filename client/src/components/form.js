@@ -13,7 +13,7 @@ const Form = () => {
     try {
       const body = { animal: animal };
       //look at server side line 37 re.body
-      const response = await fetch('http://localhost:5005/animals', {
+      const response = await fetch('http://localhost:5002/animals', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -24,24 +24,31 @@ const Form = () => {
     }
   };
 
-
   return (
     <div>
       <form onSubmit={handleSubmit} className='fieldset'>
         <fieldset>
           <h1 className='text-center'>What Did You Spot Today? 🐘 </h1>
-          {/* {' '}
-            {animal.commonname} {animal.scientificname}
-            {animal.total_wild}
-            {animal.creation_timestamp}
-            {animal.healthy} */}
           <input
             type='text'
             className='form-control'
             placeholder='Animal Name'
             required
             value={animal.commonmname}
-            onChange={(e) => setAnimal({...animal, commonname: e.target.value})}
+            onChange={(e) =>
+              setAnimal({ ...animal, commonname: e.target.value })
+            }
+          />
+          <br />
+          <input
+            type='text'
+            className='form-control'
+            placeholder='Animal Name'
+            required
+            value={animal.scientificname}
+            onChange={(e) =>
+              setAnimal({ ...animal, scientificname: e.target.value })
+            }
           />
           <br />
           <input
@@ -49,23 +56,27 @@ const Form = () => {
             className='form-control'
             id='add-animal-name'
             value={animal.creation_timestamp}
-            onChange={handleSubmit}
+            onChange={(e) =>
+              setAnimal({ ...animal, creation_timestamp: e.target.value })
+            }
           />
-          <br/>
-          <input type='type'
-          placeholder="Does Animal seems healthy?"
-          value={animal.healthy} />
-          <br/>
-          <input type='type'
-          placeholder="Y"
-          value={animal.healthy} />
-          <input type='type'
-          placeholder="N"
-            value={animal.health}
+          <br />
+          <input
+            type='type'
+            placeholder='Does Animal seems healthy?'
+            value={animal.healthy}
+            onChange={(e) => setAnimal({ ...animal, healthy: e.target.value })}
           />
-          <br/>
+          <br />
+          <input type='type' placeholder='Y' value={animal.healthy} />
+          <input type='type' placeholder='N' value={animal.health} />
+          <br />
 
-          <button onClick={() => e => handleSubmit} className='button' type='submit'>
+          <button
+            onClick={() => (e) => handleSubmit}
+            className='button'
+            type='submit'
+          >
             Add
           </button>
         </fieldset>

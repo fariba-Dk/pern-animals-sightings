@@ -13,7 +13,7 @@ const app = express();
 
 //if this env val is defined we set port to that value : else => 5005
 
-const PORT = process.env.PORT || 5005;
+const PORT = process.env.PORT || 5002;
 
 app.use(cors());
 
@@ -29,25 +29,47 @@ app.get('/animals/', async (req, res, next) => {
     console.error(error);
   }
 });
-
-//POST - add
 app.post('/animals', cors(), async (req, res) => {
   try {
-    const { animal } = req.body;
-
-    const newAnimal = await db.query(
-      //   //prepair statement
-      'INSERT INTO animals (commonname,scientificname) VALUES($1, $2) RETURNING *',
-      ['aaaa', 'bbbb']
+    const newAnimal = await req.body;
+    const result = await db.query(
+      'INSERT INTO myanimals(commonname, scientificname) VALUES($1, $2) RETURNING *',
+      [newAnimal.commonname, newAnimal.scientificname]
     );
-    // ); //placeholder
-    console.log('this is the request body ', req.body);
-    console.log('this is the new---->', newAnimal);
-    res.json({ say: 'hi' });
+    console.log(req.body)
   } catch (error) {
     console.error(error.message);
+
+    const newAnimal = {
+      commonname: req.body.commonname,
+      scientificname: req.body.scientificname,
+    };
+    console.log([newAnimal.commonname, newAnimal.scientificname]);
+
+    console.log(result.rows[0]);
+    res.json(result.rows[0]);
   }
 });
+
+//POST - add
+// app.post('/animals', cors(), async (req, res) => {
+//   try {
+//     const { animal } = req.body;
+//     console.log(animal)
+
+//     const newAnimal = await db.query(
+
+//       'INSERT INTO myanimals (commonname,scientificname) VALUES($1, $2) RETURNING *',
+//       [animal]
+//     );
+//     // ); //placeholder
+//     console.log('this is the request body ', req.body);
+//     console.log('this is the new---->', newAnimal);
+//     res.json({ say: 'hi' });
+//   } catch (error) {
+//     console.error(error.message);
+//   }
+// });
 
 /*
 //POST request
