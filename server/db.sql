@@ -14,7 +14,7 @@ CREATE TABLE animals (
 CREATE TABLE users(
     first_name varchar(30),
     last_name varchar(30),
-    
+
 
 )
 

@@ -13,11 +13,12 @@ const Form = () => {
     try {
       const body = { animal: animal };
       //look at server side line 37 re.body
-      const response = await fetch('http://localhost:5002/animals', {
+      const response = await fetch('http://localhost:8080/api/animals', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
+        body: JSON.stringify(response),
+      })
+
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -43,7 +44,7 @@ const Form = () => {
           <input
             type='text'
             className='form-control'
-            placeholder='Animal Name'
+            placeholder='Scientific Name'
             required
             value={animal.scientificname}
             onChange={(e) =>
@@ -63,15 +64,20 @@ const Form = () => {
           <br />
           <input
             type='type'
-            placeholder='Does Animal seems healthy?'
+            placeholder='Is Animal healthy?'
             value={animal.healthy}
             onChange={(e) => setAnimal({ ...animal, healthy: e.target.value })}
           />
           <br />
-          <input type='type' placeholder='Y' value={animal.healthy} />
-          <input type='type' placeholder='N' value={animal.healthy} />
-          <br />
+          <input type='checkbox' placeholder='Y' value={animal.healthy} />
+          <input type='type' placeholder='Yes!' value={animal.healthy} />
+          <input type='checkbox' placeholder='Y' value={animal.healthy} />
+          <input type='type' placeholder='No!' value={animal.healthy} />
+          <br/>
 
+          <textArea className='textarea' type="text" placeholder="Additional notes... "> Please Add Additional Notes here...
+          </textArea>
+          <br />
           <button
             onClick={() => (e) => handleSubmit}
             className='button'
@@ -109,20 +115,7 @@ const total_wild= (event) =>{
     setAnimal((animal) => ({...animal, total_wild}))
 }
 
-//A function to handle the post request
-const postAnimal = (newAnimal) => {
-  return fetch('http://localhost:5005/api/animals', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(newAnimal),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log('From the post ', data);
-      props.addAnimal(data);
-    });
+
 };
 
 

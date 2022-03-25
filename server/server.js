@@ -13,13 +13,16 @@ const app = express();
 
 //if this env val is defined we set port to that value : else => 5005
 
-const PORT = process.env.PORT || 5002;
+const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 
 app.use(express.json()); //req.body
 
 //GET -
+app.get('/', (req, res) => {
+  console.log('this is get--->');
+});
 app.get('/animals/', async (req, res, next) => {
   try {
     const allAnimals = await db.query('SELECT * FROM animals');
@@ -30,90 +33,106 @@ app.get('/animals/', async (req, res, next) => {
   }
 });
 
-//CREATE A SEEKER
-const createSeeker = (body) => {
-  return new Promise(function(resolve, reject) {
-    const { name, nick_name, email } = body
-    pool.query('INSERT INTO seekers (name, nick_name, email) VALUES ($1, $2, $3) RETURNING *', [name, nick_name, email], (error, results) => {
-      if (error) {
-        reject(error)
-      }
-      resolve(`A new seeker has been added added: ${results.rows[0]}`)
-    })
-  })
-}
-// POST - ROUTE - SEEKER
-app.post('/seekers', (req, res) => {
-  seeker_model.createSeeker(req.body)
-  .then(response => {
-    res.status(200).send(response);
-  })
-  .catch(error => {
-    res.status(500).send(error);
-  })
-})
-
-//POST ROUTE ANIMALS
-app.post('/animals', cors(), async (req, res) => {
+app.get('/users/', async (req, res, next) => {
+  // console.log(req);
   try {
-    const newAnimal = await req.body;
-    const result = await db.query(
-      'INSERT INTO myanimals(commonname, scientificname) VALUES($1, $2) RETURNING *',
-      [newAnimal.commonname, newAnimal.scientificname]
-    );
-    console.log(req.body)
+    const allUsers = await db.query('SELECT * FROM users');
+    console.log(allUsers.rows);
+    res.json(allUsers.rows);
   } catch (error) {
-    console.error(error.message);
-
-    const newAnimal = {
-      commonname: req.body.commonname,
-      scientificname: req.body.scientificname,
-    };
-    console.log([newAnimal.commonname, newAnimal.scientificname]);
-
-    console.log(result.rows[0]);
-    res.json(result.rows[0]);
+    console.error(error);
   }
 });
+//CREATE A SEEKER
+// const createSeeker = (body) => {
+//   return new Promise(function (resolve, reject) {
+//     const { name, nick_name, email } = body;
+//     pool.query(
+//       'INSERT INTO seekers (name, nick_name, email) VALUES ($1, $2, $3) RETURNING *',
+//       [name, nick_name, email],
+//       (error, results) => {
+//         if (error) {
+//           reject(error);
+//         }
+//         resolve(`A new seeker has been added added: ${results.rows[0]}`);
+//       }
+//     );
+//   });
+// };
+// // POST - ROUTE - SEEKER
+// app.post('/seekers', (req, res) => {
+//   connectionString
+//     .createSeeker(req.body)
+//     .then((response) => {
+//       res.status(200).send(response);
+//     })
+//     .catch((error) => {
+//       res.status(500).send(error);
+//     });
+// });
 
-const getSeekers = () => {
-  return new Promise(function(resolve, reject) {
-    pool.query('SELECT * FROM seekers ORDER BY id ASC', (error, results) => {
-      if (error) {
-        reject(error)
-      }
-      resolve(results.rows);
-    })
-  })
-}
+// //POST ROUTE ANIMALS
+// app.post('/animals', cors(), async (req, res) => {
+//   try {
+//     const newAnimal = await req.body;
+//     const result = await db.query(
+//       'INSERT INTO myanimals(commonname, scientificname) VALUES($1, $2) RETURNING *',
+//       [newAnimal.commonname, newAnimal.scientificname]
+//     );
+//     console.log(req.body);
+//   } catch (error) {
+//     console.error(error.message);
 
-const deleteSeeker = () => {
-  return new Promise(function(resolve, reject) {
-    const id = parseInt(request.params.id)
-    pool.query('DELETE FROM seeker WHERE id = $1', [id], (error, results) => {
-      if (error) {
-        reject(error)
-      }
-      resolve(`Seeker deleted with ID: ${id}`)
-    })
-  })
-}
+//     const newAnimal = {
+//       commonname: req.body.commonname,
+//       scientificname: req.body.scientificname,
+//     };
+//     console.log([newAnimal.commonname, newAnimal.scientificname]);
 
-app.delete('/seeker/:id', (req, res) => {
-  seeker_model.deleteSeeker(req.params.id)
-  .then(response => {
-    res.status(200).send(response);
-  })
-  .catch(error => {
-    res.status(500).send(error);
-  })
-})
+//     console.log(result.rows[0]);
+//     res.json(result.rows[0]);
+//   }
+// });
 
-module.exports = {
-  getSeekers,
-  createSeeker,
-  deleteSeeker,
-}
+// const getSeekers = () => {
+//   return new Promise(function (resolve, reject) {
+//     pool.query('SELECT * FROM seekers ORDER BY id ASC', (error, results) => {
+//       if (error) {
+//         reject(error);
+//       }
+//       resolve(results.rows);
+//     });
+//   });
+// };
+
+// const deleteSeeker = () => {
+//   return new Promise(function (resolve, reject) {
+//     const id = parseInt(request.params.id);
+//     pool.query('DELETE FROM seeker WHERE id = $1', [id], (error, results) => {
+//       if (error) {
+//         reject(error);
+//       }
+//       resolve(`Seeker deleted with ID: ${id}`);
+//     });
+//   });
+// };
+
+// // app.delete('/seeker/:id', (req, res) => {
+// //   db-connection.js
+// //     .deleteSeeker(req.params.id)
+// //     .then((response) => {
+// //       res.status(200).send(response);
+// //     })
+// //     .catch((error) => {
+// //       res.status(500).send(error);
+// //     });
+// // });
+
+// module.exports = {
+//   getSeekers,
+//   createSeeker,
+//   deleteSeeker,
+// };
 //POST - add
 // app.post('/animals', cors(), async (req, res) => {
 //   try {
@@ -177,18 +196,18 @@ app.post('/animals', cors(), async (req, res) => {
 // });
 
 //DELETE
-app.delete('/animals/:id', async (req, res) => {
-  try {
-    const { id } = await req.params;
-    const deleteAnimal = await db.query(
-      'DELETE * FROM animals WHERE animal_id = $1',
-      [id]
-    );
-    res.json('animal deleted');
-  } catch (error) {
-    console.error(error);
-  }
-});
+// app.delete('/animals/:id', async (req, res) => {
+//   try {
+//     const { id } = await req.params;
+//     const deleteAnimal = await db.query(
+//       'DELETE * FROM animals WHERE animal_id = $1',
+//       [id]
+//     );
+//     res.json('animal deleted');
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
 
 //create the PUT request
 // app.delete('/api/animals/:id', cors(), async (req, res) => {

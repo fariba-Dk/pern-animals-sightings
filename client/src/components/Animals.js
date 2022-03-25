@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import Form from './Form';
 
 function Animals() {
   const [animalsData, setAnimalsData] = useState([]);
@@ -12,7 +11,7 @@ function Animals() {
 
   const getAnimals = async () => {
     try {
-      const response = await fetch('http://localhost:5002/animals');
+      const response = await fetch('http://localhost:8080/animals');
 
       const data = await response.json();
 
