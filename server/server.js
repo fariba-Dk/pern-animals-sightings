@@ -1,12 +1,12 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 
 //FOR DEVELOPMENT or FOR PRODUCTION environment variables ===Environment variables are, in short, variables that describe the environment in which apps and programs run
 
-require('dotenv').config();
+require("dotenv").config();
 
 // const db = require('../server/db/db-connection.js');
-const db = require('./db/db-connection');
+const db = require("./db/db-connection");
 
 //creating an instance of express
 const app = express();
@@ -21,9 +21,9 @@ app.use(express.json()); //req.body
 
 //GET -
 
-app.get('/animals/', async (req, res, next) => {
+app.get("/animals/", async (req, res, next) => {
   try {
-    const allAnimals = await db.query('SELECT * FROM animals');
+    const allAnimals = await db.query("SELECT * FROM animals");
     console.log(allAnimals.rows);
     res.json(allAnimals.rows);
   } catch (error) {
@@ -31,10 +31,11 @@ app.get('/animals/', async (req, res, next) => {
   }
 });
 
-app.get('/users/', async (req, res, next) => {
+app.get("/users/", async (req, res, next) => {
   // console.log(req);
+  console.log("users", req.query);
   try {
-    const allUsers = await db.query('SELECT * FROM users');
+    const allUsers = await db.query("SELECT * FROM users");
     console.log(allUsers.rows);
     res.json(allUsers.rows);
   } catch (error) {
@@ -44,9 +45,9 @@ app.get('/users/', async (req, res, next) => {
 //CREATE A SEEKER
 const createSeeker = (body) => {
   return new Promise(function (resolve, reject) {
-    const { name, nick_name, email } = body;
+    // const { name, nick_name, email } = body;
     pool.query(
-      'INSERT INTO users (name, nick_name, email) VALUES ($1, $2, $3) RETURNING *',
+      "INSERT INTO users (name, nick_name, email) VALUES ($1, $2, $3) RETURNING *",
       [name, nick_name, email],
       (error, results) => {
         if (error) {
@@ -58,7 +59,7 @@ const createSeeker = (body) => {
   });
 };
 // POST - ROUTE - SEEKER
-app.post('/users', (req, res) => {
+app.post("/users", (req, res) => {
   connectionString
     .createSeeker(req.body)
     .then((response) => {
@@ -70,24 +71,30 @@ app.post('/users', (req, res) => {
 });
 
 //POST ROUTE ANIMALS
-app.post('/animals', cors(), async (req, res) => {
+app.post("/animals", cors(), async (req, res) => {
   try {
-    const newAnimal = await req.body;
+    const { commonname, creation_timestamp, scientificname, healthy } =
+      await req.body;
+
     const result = await db.query(
-      'INSERT INTO myanimals(commonname) VALUES($1) RETURNING *',
-      [newAnimal.commonname]
+      "INSERT INTO animals(commonname, scientificname, creation_timestamp, healthy) VALUES($1, $2, $3, $4) RETURNING *",
+      [commonname, scientificname, creation_timestamp, !!healthy] // !! bc healthy can only take boolean
     );
-    console.log(req.body);
+
+    res.json(result.rows[0]);
   } catch (error) {
     console.error(error.message);
+    res.error(400).send("error creating animal");
+  }
+});
 
-    const newAnimal = {
-      commonname: req.body.commonname,
-    };
-    console.log([newAnimal.commonname]);
-    console.log('test------->')
-
-    res.json(newAnimal);
+app.delete("/animals/:id", cors(), async (req, res) => {
+  const { id } = req.params; // NOTE: DELETE req uses params over query or body
+  try {
+    await db.query("DELETE from animals where id=$1", [id]);
+    res.json({ message: `successfully deleted animal ${id}` });
+  } catch (error) {
+    res.error(400).send(`error deleting animal ${res}`);
   }
 });
 

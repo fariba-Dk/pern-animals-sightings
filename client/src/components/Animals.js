@@ -1,41 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import '../App.css';
+import React, { useState, useEffect } from "react";
+import "../App.css";
 
-function Animals() {
-  const [animalsData, setAnimalsData] = useState([]);
-
-  //HOOK makes a fetch request REST API everytime this component is rendered and
-  useEffect(() => {
-    getAnimals();
-  }, []);
-
-  const getAnimals = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/animals');
-
-      const data = await response.json();
-
-      setAnimalsData(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+function Animals(props) {
+  const { animalsData, setAnimalsData } = props;
+  // useEffect(() => {}, [animalsData])
 
   //DELETE FUNCTION
   const deleteAnimal = async (id) => {
     try {
-      const deleteAnimal = await fetch(`http://localhost:5002/animals/` + id, {
-        method: 'DELETE',
-      });
-      console.log('this item just got deeeeeeeeleted', deleteAnimal);
-      //to take the deleted animals out
-      setAnimalsData(animalsData.filter((animal) => animal.id !== id));
+      const deleteResponse = await fetch(
+        `http://localhost:8080/animals/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (deleteResponse.status === 200) {
+        //to take the deleted animals out
+        setAnimalsData(animalsData.filter((animal) => animal.id !== id));
+      }
     } catch (error) {
       console.error(error);
     }
   };
   return (
-    <div className='app'>
+    <div className="app">
       <table>
         <thead>
           <tr>
@@ -57,10 +45,14 @@ function Animals() {
               <td>{animal.healthy}</td> <td> </td>
               <td> </td>
               <td>
-                <input type='text' placeholder='Notes...' />
+                <input
+                  type="text"
+                  placeholder="Notes..."
+                  value={animal.notes} // we haven't stored notes in db, so need to create column to do so
+                />
               </td>
               <td>
-                <button onClick={() => deleteAnimal(animal.id)}>Update</button>
+                <button onClick={() => deleteAnimal(animal.id)}>Delete</button>
               </td>
             </tr>
           ))}

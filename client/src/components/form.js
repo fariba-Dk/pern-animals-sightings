@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import '../App.css';
+import React, { useState } from "react";
+import "../App.css";
 
-const Form = () => {
+const Form = (props) => {
   //HOOKS
-
+  const { onSubmit } = props;
   const [animal, setAnimal] = useState({});
   //handle submit ...
   const handleSubmit = async (e) => {
@@ -11,15 +11,15 @@ const Form = () => {
     // if(!animal) return;
     // const animal = e.target.value;
     try {
-      const body = { animal: animal };
       //look at server side line 37 re.body
-      const response = await fetch('http://localhost:8080/animals', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+      const response = await fetch("http://localhost:8080/animals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(animal),
       });
-
-      console.log(response);
+      if (response.status === 200) {
+        await onSubmit();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -27,13 +27,13 @@ const Form = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className='fieldset'>
+      <form onSubmit={handleSubmit} className="fieldset">
         <fieldset>
-          <h1 className='text-center'>What Did You Spot Today? 🐘 </h1>
+          <h1 className="text-center">What Did You Spot Today? 🐘 </h1>
           <input
-            type='text'
-            className='form-control'
-            placeholder='Animal Name'
+            type="text"
+            className="form-control"
+            placeholder="Animal Name"
             required
             value={animal.commonmname}
             onChange={(e) =>
@@ -42,9 +42,9 @@ const Form = () => {
           />
           <br />
           <input
-            type='text'
-            className='form-control'
-            placeholder='Scientific Name'
+            type="text"
+            className="form-control"
+            placeholder="Scientific Name"
             required
             value={animal.scientificname}
             onChange={(e) =>
@@ -53,9 +53,9 @@ const Form = () => {
           />
           <br />
           <input
-            type='date'
-            className='form-control'
-            id='add-animal-name'
+            type="date"
+            className="form-control"
+            id="add-animal-name"
             value={animal.creation_timestamp}
             onChange={(e) =>
               setAnimal({ ...animal, creation_timestamp: e.target.value })
@@ -63,27 +63,27 @@ const Form = () => {
           />
           <br />
           <input
-            type='type'
-            placeholder='Is Animal healthy?'
+            type="type"
+            placeholder="Is Animal healthy?"
             value={animal.healthy}
             onChange={(e) => setAnimal({ ...animal, healthy: e.target.value })}
           />
           <br />
-          <input type='checkbox' placeholder='Y' value={animal.healthy} />
-          <input type='type' placeholder='Yes!' value={animal.healthy} />
-          <input type='checkbox' placeholder='Y' value={animal.healthy} />
-          <input type='type' placeholder='No!' value={animal.healthy} />
+          <input type="checkbox" placeholder="Y" value={animal.healthy} />
+          <input type="type" placeholder="Yes!" value={animal.healthy} />
+          <input type="checkbox" placeholder="Y" value={animal.healthy} />
+          <input type="type" placeholder="No!" value={animal.healthy} />
           <br />
 
           <textarea
-            className='textarea'
-            type='text'
-            placeholder='Additional notes... '
+            className="textarea"
+            type="text"
+            placeholder="Additional notes... "
           >
             Notes Here...
           </textarea>
           <br />
-          <button className='button' type='submit'>
+          <button className="button" type="submit">
             Add
           </button>
         </fieldset>

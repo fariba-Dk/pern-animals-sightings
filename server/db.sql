@@ -1,14 +1,13 @@
 
 
 CREATE TABLE animals (
-    id integer NOT NULL,
+    id SERIAL,
     commonname character varying(255),
     scientificname character varying(255),
-    total_wild INTEGER (10),
+    total_wild INTEGER,
     conservation_status_code VARCHAR (10),
-    healthy BOOL (1),
-    creation_timestamp DATE,
-
+    healthy BOOL,
+    creation_timestamp DATE
 );
 
 CREATE TABLE users(
