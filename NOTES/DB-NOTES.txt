@@ -1,3 +1,52 @@
+faribadadko@Faribas-MacBook-Pro-2 ~ % psql myanimals;
+Password for user faribadadko:
+psql (14.2)
+Type "help" for help.
+
+myanimals=# \list
+                               List of databases
+    Name     |    Owner    | Encoding | Collate | Ctype |   Access privileges
+-------------+-------------+----------+---------+-------+-----------------------
+ myanimals   | faribadadko | UTF8     | C       | C     |
+ postgres    | postgres    | UTF8     | C       | C     |
+ techtonica1 | postgres    | UTF8     | C       | C     |
+ template0   | postgres    | UTF8     | C       | C     | =c/postgres          +
+             |             |          |         |       | postgres=CTc/postgres
+ template1   | postgres    | UTF8     | C       | C     | =c/postgres          +
+             |             |          |         |       | postgres=CTc/postgres
+(5 rows)
+
+myanimals=# \c myanimals;
+You are now connected to database "myanimals" as user "faribadadko".
+myanimals=# \dt;
+            List of relations
+ Schema |   Name   | Type  |    Owner
+--------+----------+-------+-------------
+ public | animals  | table | faribadadko
+ public | seekers  | table | faribadadko
+ public | sighters | table | faribadadko
+(3 rows)
+
+
+myanimals=# INSERT INTO seekers (name, nick_name, email) VALUES ('julie', 'jj', 'jj@mail.com');
+INSERT 0 1
+myanimals=# INSERT INTO seekers (name, nick_name, email) VALUES ('fariba', 'dk', 'dk@mail.com');
+INSERT 0 1
+myanimals=# SELECT id, name, nick_name, email from seekers;
+ id |  name  | nick_name |    email
+----+--------+-----------+-------------
+  1 | julie  | jj        | jj@mail.com
+  2 | fariba | dk        | dk@mail.com
+(2 rows)
+
+
+
+
+
+
+
+
+
 faribadadko@Faribas-MacBook-Pro-2 ~ % psql
 Password for user faribadadko:
 psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: FATAL:  database "faribadadko" does not exist
@@ -40,3 +89,107 @@ postgres=# SELECT * from animals;
 postman { commonname: 'bear', scientificname: 'bearotus', total_wild: 4500 }
 
 SELECT * FROM animals INNER JOIN users ON animals_id_seq = users_id_seq;
+myanimals=# SELECT * FROM animals;
+ id | commonname | scientificname | total_wild | conservation_status_code | creation_timestamp | healthy
+----+------------+----------------+------------+--------------------------+--------------------+---------
+  1 | Cammel     | Clamus         |       8870 |                          | 1919-10-27         | t
+  2 | Raccoon   +| Rooocoo_indis  |       8070 |                          | 1922-10-27         | t
+    |            |                |            |                          |                    |
+  3 | Scorpion   | Scorbinosas    |     800870 |                          | 2022-10-27         | t
+  4 | Catfish    | ZosoACcatus    |     800870 |                          | 2022-01-27         | t
+  5 |            |                |            |                          |                    |
+(5 rows)
+
+
+Getting started with Postgres in your React app
+March 19, 2020  7 min read
+
+Getting started with Postgres in your React app
+Frontend developers typically don’t need to understand the process of receiving, recording, and removing information. That’s a job for backend developers.
+
+That said, there are plenty of good reasons for a frontend developer to learn about backend programming and database interaction. For instance:
+
+You’ll stand out from other frontend developers because you’ll know how your application work as a whole
+You’ll be able to work on both the front and back side of your app
+You can be promoted to a full-stack developer and take on a bigger role with a higher salary
+Knowledge of both frontend and backend programming — as well as designing scalable systems and building solid application architecture — is a requirement to be a tech lead
+In this tutorial, we’ll demonstrate how to create a small application using Express and Node.js that can record and remove information from a PostgreSQL database according to the HTTP requests it receives. We’ll then create a simple React app to test and see how the entire application flows from front to back.
+
+I’ll assume that you understand how a React application works and are familiar with frontend JavaScript HTTP requests. We won’t cover how to validate data before interacting with the database. Instead, we’ll focus on showing how requests from the interface are recorded into a database.
+
+I published a GitHub repo for this tutorial so you can compare your code if you get stuck. Now let’s get our database running.
+
+Setting up PostgreSQL
+PostgreSQL, or Postgres, is a relational database management system that claims to be the world’s most advanced open-source relational database. It has been maintained since 1996 and has a reputation for being reliable and robust.
+
+Start by downloading and installing PosgreSQL. It supports all major operating systems, so choose the right one for your computer and follow the instructions to set up the database. The setup wizard will prompt you to enter a superuser password. Make sure you remember this password; you’ll need it to login later.
+
+Once the installation is complete, you can access your database by using pgAdmin, a graphical interface tool database management that is installed automatically with PostgreSQL.
+
+Once opened, pgAdmin will ask for your password to log in. Below is the overview of a newly installed PostgreSQL database.
+
+PostgreSQL Database Overview in pgAdmin
+Creating a Postgres database
+To better understand SQL language, we need to create a database and table from the terminal.
+
+To access PostgreSQL from the terminal, use the command psql with the option -d to select the database you want to access and -U to select the user. If the terminal replies that the psql command is not found, you’ll most likely need to add the Postgres bin/ and lib/ directories into your system path.
+
+psql -d postgres -U postgres
+You will be asked to input your password. Use the password you created earlier. Once you’re logged in, create a new user by adding a login permission with the password “root.”
+
+CREATE ROLE my_user WITH LOGIN PASSWORD 'root';
+A user is simply a role that has login permission. Now that you have one, give it permission to create databases by issuing the ALTER ROLE [role name] CREATEDB syntax.
+
+ALTER ROLE my_user CREATEDB;
+Log out from your postgres superuser and log in as my_user using the command \q.
+
+\q
+psql -d postgres -U my_user
+Now that you’re back inside, create a new database named my_database.
+
+CREATE DATABASE my_database;
+You might be wondering, why can’t we just use the default postgres user to create the database? That’s because the default user is a superuser, which means it has access to everything within the database. According to the Postgres documentation, “superuser status is dangerous and should be used only when really needed.”
+
+An SQL-based database stores data inside a table. Now that you have a database, let’s create a simple table where you can record your data.
+
+CREATE TABLE merchants( id SERIAL PRIMARY KEY, name VARCHAR(30), email VARCHAR(30) );
+One database can have multiple tables, but we’ll be fine with one table for this tutorial. If you’d like to check the created database and table, you can use the command \list and \dt, respectively. You might see more rows or less, but as long as you have the database and the table you created previously, your table should look like this:
+
+my_database=> \list
+          List of databases
+ Name        |  Owner   | Encoding
+ my_database | my_user  | UTF8
+ postgres    | postgres | UTF8
+ template0   | postgres | UTF8
+ template1   | postgres | UTF8
+
+
+my_database=> \dt
+          List of relations
+ Schema |   Name    | Type  |  Owner
+--------+-----------+-------+---------
+ public | merchants | table | my_user
+
+myanimals=# SELECT id, commonname from animals;
+ id | commonname
+----+------------
+  1 | Cammel
+  2 | Raccoon   +
+    |
+  3 | Scorpion
+  4 | Catfish
+  5 |
+(5 rows)
+
+myanimals=# SELECT id, name, nick_name from sighters;
+
+CREATE TABLE merchants( id SERIAL PRIMARY KEY, name VARCHAR(30), email VARCHAR(30) );
+
+CREATE TABLE seekers( id SERIAL PRIMARY KEY, name VARCHAR(20), nick_name VARCHAR(20), email VARCHAR(20) );
+
+INSERT INTO sighters (name, nick_name, email) VALUES (Julie','jc', 'jj@mail.com');
+
+
+INSERT INTO seekers (name, nick_name, email) VALUES ('fariba', 'dk', 'dk@mail.com');
+
+SELECT id, name, nick_name, email from seekers;

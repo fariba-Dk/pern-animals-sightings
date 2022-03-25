@@ -29,6 +29,31 @@ app.get('/animals/', async (req, res, next) => {
     console.error(error);
   }
 });
+
+//CREATE A SEEKER
+const createSeeker = (body) => {
+  return new Promise(function(resolve, reject) {
+    const { name, nick_name, email } = body
+    pool.query('INSERT INTO seekers (name, nick_name, email) VALUES ($1, $2, $3) RETURNING *', [name, nick_name, email], (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(`A new seeker has been added added: ${results.rows[0]}`)
+    })
+  })
+}
+// POST - ROUTE - SEEKER
+app.post('/seekers', (req, res) => {
+  seeker_model.createSeeker(req.body)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+//POST ROUTE ANIMALS
 app.post('/animals', cors(), async (req, res) => {
   try {
     const newAnimal = await req.body;
@@ -51,6 +76,44 @@ app.post('/animals', cors(), async (req, res) => {
   }
 });
 
+const getSeekers = () => {
+  return new Promise(function(resolve, reject) {
+    pool.query('SELECT * FROM seekers ORDER BY id ASC', (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(results.rows);
+    })
+  })
+}
+
+const deleteSeeker = () => {
+  return new Promise(function(resolve, reject) {
+    const id = parseInt(request.params.id)
+    pool.query('DELETE FROM seeker WHERE id = $1', [id], (error, results) => {
+      if (error) {
+        reject(error)
+      }
+      resolve(`Seeker deleted with ID: ${id}`)
+    })
+  })
+}
+
+app.delete('/seeker/:id', (req, res) => {
+  seeker_model.deleteSeeker(req.params.id)
+  .then(response => {
+    res.status(200).send(response);
+  })
+  .catch(error => {
+    res.status(500).send(error);
+  })
+})
+
+module.exports = {
+  getSeekers,
+  createSeeker,
+  deleteSeeker,
+}
 //POST - add
 // app.post('/animals', cors(), async (req, res) => {
 //   try {
