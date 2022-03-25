@@ -5,13 +5,13 @@ import Form from './components/Form';
 function App() {
   return (
     <>
-      <h1 className='h1'>I Spot An ...!👁‍🗨</h1>
-      <div>
-        <h4 className='a'> | 🐢 🦃 🦅 🐅 🦁 🐘 🐒 pijo🦃 🦖 </h4>
-      </div>
- <Form />
-      <Animals />
-
+      {/* <h1 className='h1'>I Spot An ...!👁‍🗨</h1>
+      <div className='app'>
+        <h4 className='a'> | 🐢 🦃 🦅 🐅 🦁 🐘 🐒 🦃 🦖 </h4>
+      </div> */}
+      
+      <Form />
+      <Animals className='app' />
     </>
   );
 }

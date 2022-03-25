@@ -69,7 +69,7 @@ const Form = () => {
           />
           <br />
           <input type='type' placeholder='Y' value={animal.healthy} />
-          <input type='type' placeholder='N' value={animal.health} />
+          <input type='type' placeholder='N' value={animal.healthy} />
           <br />
 
           <button

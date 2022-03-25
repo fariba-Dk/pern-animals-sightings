@@ -1,10 +1,29 @@
-* {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  text-align: center;
-  background-color: rgb(225, 243, 225);
+/* *{height:100%;
+  width:100%;
+} */
+.app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.fieldset {
+
+table {
+  border: 2px solid forestgreen;
+  width: 800px;
+  height: 200px;
+}
+
+th {
+  border-bottom: 1px solid black;
+}
+
+td {
+  text-align: center;
+}
+
+/* .fieldset {
   color: green;
   border-width: 50px;
   height: 20px;
@@ -15,7 +34,7 @@
   border-width: thick;
   border-color: greenyellow;
   font-size: 20px;
-}
+} */
 .button {
   padding: 0px;
   margin: 0px;
@@ -34,14 +53,14 @@
   padding: 10px;
 }
 
-.h2 {
+/* .h2 {
   text-align: center;
   font-size: 90px;
   color: yellow;
   background-color: green;
   margin: 50px;
   padding: 10px;
-}
+} */
 .a {
   position: absolute;
   top: 600px;
