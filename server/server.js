@@ -20,7 +20,7 @@ app.use(cors());
 app.use(express.json()); //req.body
 
 //GET -
-
+//ORM obj ref mapping
 app.get("/animals/", async (req, res, next) => {
   try {
     const allAnimals = await db.query("SELECT * FROM animals");
